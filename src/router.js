@@ -3,6 +3,8 @@ import { createRouter, createWebHistory } from 'vue-router';
 import Home from '@/views/Home';
 import Login from '@/views/Login';
 import Site from '@/views/Site';
+import Vendas from '@/components/vendas/Vendas.vue';
+import Servicos from '@/components/servicos/Servicos.vue';
 
 const routes = [
   {
@@ -12,6 +14,16 @@ const routes = [
   {
     path: '/home',
     component: Home,
+    children: [
+      {
+        path: 'vendas',
+        component: Vendas,
+      },
+      {
+        path: 'servicos',
+        component: Servicos,
+      }
+    ]
   },
   {
     path: '/login',
