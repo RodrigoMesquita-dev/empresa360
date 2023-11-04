@@ -4,7 +4,10 @@ import Home from '@/views/Home';
 import Login from '@/views/Login';
 import Site from '@/views/Site';
 import Vendas from '@/components/vendas/Vendas.vue';
+import Leads from '@/components/vendas/Leads.vue';
+import Contratos from '@/components/vendas/Contratos.vue';
 import Servicos from '@/components/servicos/Servicos.vue';
+import Dashboard from '@/components/dashboard/Dashboard.vue'
 
 const routes = [
   {
@@ -18,10 +21,18 @@ const routes = [
       {
         path: 'vendas',
         component: Vendas,
+        children: [
+          { path: 'leads', component: Leads },
+          { path: 'contratos', component: Contratos },
+        ]
       },
       {
         path: 'servicos',
         component: Servicos,
+      },
+      {
+        path: 'dashboard',
+        component: Dashboard,
       }
     ]
   },
