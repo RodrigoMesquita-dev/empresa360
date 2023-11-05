@@ -14,7 +14,9 @@
           <td>{{d.nome}}</td>
           <td>{{d.telefone}}</td>
           <td>
-            <router-link :to="`/home/vendas/leads/${d.id}`" class="btn btn-sm btn-primary">
+            <!--params não funciona com a string path-->
+            <!--<router-link :to="`/home/vendas/leads/${d.id}`" class="btn btn-sm btn-primary" :to="{ name: 'lead'}">-->
+            <router-link class="btn btn-sm btn-primary" :to="{ name: 'lead', params: { id: d.id }}">
               <i class="bi bi-pencil-square" style="cursor: pointer"></i>
             </router-link>
           </td>
