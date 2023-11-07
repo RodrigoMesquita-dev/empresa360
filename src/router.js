@@ -10,7 +10,10 @@ import Lead from '@/components/vendas/Lead.vue'
 import Contratos from '@/components/vendas/Contratos.vue';
 import Servicos from '@/components/servicos/Servicos.vue';
 import Servico from '@/components/servicos/Servico.vue';
-import Dashboard from '@/components/dashboard/Dashboard.vue'
+import Indicadores from '@/components/servicos/Indicadores.vue';
+import Opcoes from '@/components/servicos/Opcoes.vue';
+import Dashboard from '@/components/dashboard/Dashboard.vue';
+import DashboardRodape from '@/components/dashboard/DashboardRodape.vue';
 
 const routes = [
   {
@@ -19,6 +22,7 @@ const routes = [
   },
   {
     path: '/home',
+    alias: '/app',
     component: Home,
     children: [
       {
@@ -27,7 +31,8 @@ const routes = [
         children: [
           { path: '', component: VendasPadrao },
           { path: 'leads', component: Leads, name: 'leads' },
-          { path: 'leads/:id', component: Lead, name: 'lead' },
+          /* enquanto names funcionam como atalhos para router links, alias funcionam como alternativas para a url */
+          { path: 'leads/:id', component: Lead, name: 'lead', alias: ['/l/:id', '/pessoa/:id','/:id'] }, // posso definir um array de alias para a rota e chamar ela por cada um 
           { path: 'contratos', component: Contratos, name: 'contratos' },
         ]
       },
@@ -36,12 +41,21 @@ const routes = [
         component: Servicos,
         name: 'abc',
         children: [
-          { path: ':id', component: Servico,  name: 'servico' },
+          { path: ':id', alias: '/s/:id', components: // quando uso o barra significa que a requisição deve ser feita a partir da raiz 
+            {
+              default: Servico,
+              opcoes: Opcoes ,
+              indicadores: Indicadores,
+            },
+          name: 'servico' },
         ]
       },
       {
         path: 'dashboard',
-        component: Dashboard,
+        components: {
+          default: Dashboard,
+          rodape: DashboardRodape,
+        },
       }
     ]
   },
