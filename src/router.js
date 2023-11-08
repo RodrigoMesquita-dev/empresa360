@@ -3,6 +3,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 import Home from '@/views/Home';
 import Login from '@/views/Login';
 import Site from '@/views/Site';
+import PaginaNaoEncontrada from '@/views/PaginaNaoEncontrada';
 import Vendas from '@/components/vendas/Vendas.vue';
 import VendasPadrao from '@/components/vendas/VendasPadrao.vue';
 import Leads from '@/components/vendas/Leads.vue';
@@ -29,10 +30,10 @@ const routes = [
         path: 'vendas',
         component: Vendas,
         children: [
-          { path: '', component: VendasPadrao },
+          { path: '', component: VendasPadrao, name: 'vendas', }, // quando temos um path default com string vazia, temos que aplicar o name no component padrão
           { path: 'leads', component: Leads, name: 'leads' },
           /* enquanto names funcionam como atalhos para router links, alias funcionam como alternativas para a url */
-          { path: 'leads/:id', component: Lead, name: 'lead', alias: ['/l/:id', '/pessoa/:id','/:id'] }, // posso definir um array de alias para a rota e chamar ela por cada um 
+          { path: 'leads/:id', component: Lead, name: 'lead', alias: ['/l/:id', '/pessoa/:id'] }, // posso definir um array de alias para a rota e chamar ela por cada um 
           { path: 'contratos', component: Contratos, name: 'contratos' },
         ]
       },
@@ -56,7 +57,20 @@ const routes = [
           default: Dashboard,
           rodape: DashboardRodape,
         },
-      }
+      }, // redirecionamento de rotas
+      { path: '/redirecionamento-1', redirect: '/home/servicos' },
+      { path: '/redirecionamento-2', redirect: { name: 'leads' } },
+      { path: '/redirecionamento-3', redirect: '/home/vendas' },
+      { path: '/redirecionamento-4', redirect: { name: 'vendas' } },
+      { path: '/redirecionamento-5', redirect: to => {
+          //podemos programar algo antes do redirecionamento acontecer.
+          console.log(to);
+          // return '/home/vendas';
+          return { name: 'vendas' };
+        } 
+      },
+      // { path: '/:catchAll(.*)*', redirect: '/' } // vue2
+      { path: '/:catchAll(.*)*', component: PaginaNaoEncontrada }
     ]
   },
   {
