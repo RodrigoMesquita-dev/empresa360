@@ -3,9 +3,18 @@ export default {
         dados: null 
     }),
     methods: {
-        getDadosApi(url) {
+        getDadosApi(url, queryParams = {}) {
             // aqui chamaremos os dados salvosd no nosso json-server
-            fetch(url)
+
+            Object.keys(queryParams).forEach(chave => {
+                if (queryParams[chave] === '') delete this.formPesquisa[chave];
+            });
+        
+            const urlQueryParams = new URLSearchParams(queryParams).toString();
+
+            const urlCompleta = urlQueryParams ? `${url}&${urlQueryParams}` : url 
+
+            fetch(urlCompleta)
             .then(response => {
                 return response.json(); 
             })
