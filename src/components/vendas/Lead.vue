@@ -32,14 +32,10 @@ import ApiMixin from "@/mixins/ApiMixin";
 
 export default {
     name: 'Lead',
-    data: () => {
-        return {
-            dados: {},
-        };
-    },
+    props: ['id', 'outroParam'],
     mixins: [ApiMixin],
     created() {
-        this.getDadosApi(`http://localhost:3000/leads/${this.$route.params.id}`)
+        this.getDadosApi(`http://localhost:3000/leads/${this.id}`)
     }
 }
 </script>

@@ -16,7 +16,7 @@
           <td>
             <!--params não funciona com a string path-->
             <!--<router-link :to="`/home/vendas/leads/${d.id}`" class="btn btn-sm btn-primary" :to="{ name: 'lead'}">-->
-            <router-link class="btn btn-sm btn-primary" :to="{ name: 'lead', params: { id: d.id }}">
+            <router-link class="btn btn-sm btn-primary" :to="{ name: 'lead', params: { id: d.id, outroParam: `teste_${d.id}` }}">
               <i class="bi bi-pencil-square" style="cursor: pointer"></i>
             </router-link>
           </td>

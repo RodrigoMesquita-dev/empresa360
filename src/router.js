@@ -33,7 +33,16 @@ const routes = [
           { path: '', component: VendasPadrao, name: 'vendas', }, // quando temos um path default com string vazia, temos que aplicar o name no component padrão
           { path: 'leads', component: Leads, name: 'leads' },
           /* enquanto names funcionam como atalhos para router links, alias funcionam como alternativas para a url */
-          { path: 'leads/:id', component: Lead, name: 'lead', alias: ['/l/:id', '/pessoa/:id'] }, // posso definir um array de alias para a rota e chamar ela por cada um 
+          {
+            path: 'leads/:id/:outroParam',
+            props: true,
+            component: Lead,
+            name: 'lead',
+            alias: [
+              '/l/:id/:outroParam',
+              '/pessoa/:id/:outroParam'
+            ]
+          }, // posso definir um array de alias para a rota e chamar ela por cada um 
           { path: 'contratos', component: Contratos, name: 'contratos' },
         ]
       },
