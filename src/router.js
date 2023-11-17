@@ -35,7 +35,18 @@ const routes = [
           /* enquanto names funcionam como atalhos para router links, alias funcionam como alternativas para a url */
           {
             path: 'leads/:id/:outroParam',
-            props: true,
+            // props: true,
+            // props: {
+            //   id: 5,
+            //   outroParametro: 'pt-br'
+            // },
+            props: route => {
+              console.log(route);
+              return {
+                id: 3,
+                outroParametro: 'en'
+              }
+            },
             component: Lead,
             name: 'lead',
             alias: [
@@ -51,8 +62,15 @@ const routes = [
         component: Servicos,
         name: 'abc',
         children: [
-          { path: ':id', alias: '/s/:id', components: // quando uso o barra significa que a requisição deve ser feita a partir da raiz 
-            {
+          {
+            path: ':id',
+            props: {
+              default: true,
+              indicadores: true,
+              opcoes: true,
+            },
+            alias: '/s/:id',
+            components: { // quando uso o barra significa que a requisição deve ser feita a partir da raiz 
               default: Servico,
               opcoes: Opcoes ,
               indicadores: Indicadores,

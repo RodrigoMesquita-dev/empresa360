@@ -18,8 +18,9 @@ export default {
         };
     },
     mixins: [ApiMixin],
+    props: ['id'],
     created() {
-        this.getDadosApi(`http://localhost:3000/servicos/${this.$route.params.id}`)
+        this.getDadosApi(`http://localhost:3000/servicos/${this.id}`)
     },
     beforeRouteUpdate(to, from, next) {
         //to = $route para onde estamos indo
