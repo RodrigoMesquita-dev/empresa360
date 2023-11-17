@@ -20,9 +20,11 @@ const routes = [
   {
     path: '/',
     component: Site,
+    meta: { requerAutorizacao: false } // meta field
   },
   {
     path: '/home',
+    meta: { requerAutorizacao: true }, // meta field
     alias: '/app',
     component: Home,
     children: [
@@ -31,27 +33,38 @@ const routes = [
         component: Vendas,
         children: [
           { path: '', component: VendasPadrao, name: 'vendas', }, // quando temos um path default com string vazia, temos que aplicar o name no component padrão
-          { path: 'leads', component: Leads, name: 'leads' },
+          { 
+            path: 'leads',
+            component: Leads,
+            name: 'leads',
+            beforeEnter: () => {
+              console.log('before enter executado na rota leads');
+            }
+          },
           /* enquanto names funcionam como atalhos para router links, alias funcionam como alternativas para a url */
           {
             path: 'leads/:id/:outroParam',
-            // props: true,
+            props: true,
             // props: {
             //   id: 5,
             //   outroParametro: 'pt-br'
             // },
-            props: route => {
-              console.log(route);
-              return {
-                id: 3,
-                outroParametro: 'en'
-              }
-            },
+            // props: route => {
+            //   console.log(route);
+
+            //   let teste = route.query.idioma ? route.query.idioma : route.params.outroParam
+
+            //   return {
+            //     id: 3,
+            //     outroParam: teste
+            //   }
+            // },
             component: Lead,
             name: 'lead',
             alias: [
               '/l/:id/:outroParam',
-              '/pessoa/:id/:outroParam'
+              '/pessoa/:id/:outroParam',
+              '/:id/:outroParam'
             ]
           }, // posso definir um array de alias para a rota e chamar ela por cada um 
           { path: 'contratos', component: Contratos, name: 'contratos' },
@@ -113,4 +126,18 @@ const router = createRouter({
   routes
 })
 
+// guarda de rota a nivel global
+router.beforeEach((to) => {
+  console.log(to.meta)
+  /* 
+  if (meta.requerautorizacao) {
+    validar
+  } 
+  */
+})
+
+// router.afterEach((to, from, next) => {
+router.afterEach(() => {
+  console.log('guarda de rota global executada após a conclusão da navegação');
+})
 export default router;

@@ -1,25 +1,27 @@
 <template>
     <div>
-        <h3>Lead {{ this.$route.params.id }} - {{ this.dados.nome }}</h3>
-        <hr/>
+        <h5>{{ dados.id }} - {{ dados.nome }}</h5>
         <div class="mb-3 row">
-            <label for="col-sm-2 col-form-label">ID</label>
+            <label class="col-sm-2 col-form-label">ID</label>
             <div class="col-sm-10">
-                <input type="text" readonly class="form-control-plaintext" :value="this.dados.id">
+                <input type="text" readonly class="form-control-plaintext" :value="dados.id">
             </div>
         </div>
+
         <div class="mb-3 row">
-            <label for="col-sm-2 col-form-label">Nome</label>
+            <label class="col-sm-2 col-form-label">Nome</label>
             <div class="col-sm-10">
-                <input type="text" readonly class="form-control" :value="this.dados.nome">
+                <input type="text" class="form-control" :value="dados.nome">
             </div>
         </div>
+
         <div class="mb-3 row">
-            <label for="col-sm-2 col-form-label">Telefone</label>
+            <label class="col-sm-2 col-form-label">Telefone</label>
             <div class="col-sm-10">
-                <input type="text" readonly class="form-control" :value="this.dados.telefone">
+                <input type="text" class="form-control" :value="dados.telefone">
             </div>
         </div>
+
         <div class="col-auto d-flex justify-content-between">
             <button type="button" class="btn btn-warning" @click="$router.push({ name: 'leads' })">Voltar</button>
             <button type="button" class="btn btn-primary">Atualizar</button>
@@ -28,11 +30,11 @@
 </template>
 
 <script>
-import ApiMixin from "@/mixins/ApiMixin";
+import ApiMixin from '@/mixins/ApiMixin'
 
 export default {
     name: 'Lead',
-    props: ['id', 'outroParam'],
+    props: ['id', 'outroParametro'],
     mixins: [ApiMixin],
     created() {
         this.getDadosApi(`http://localhost:3000/leads/${this.id}`)
