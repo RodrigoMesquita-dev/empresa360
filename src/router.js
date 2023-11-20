@@ -1,20 +1,38 @@
 import { createRouter, createWebHistory } from 'vue-router';
 
-import Home from '@/views/Home';
-import Login from '@/views/Login';
-import Site from '@/views/Site';
-import PaginaNaoEncontrada from '@/views/PaginaNaoEncontrada';
-import Vendas from '@/components/vendas/Vendas.vue';
-import VendasPadrao from '@/components/vendas/VendasPadrao.vue';
-import Leads from '@/components/vendas/Leads.vue';
-import Lead from '@/components/vendas/Lead.vue'
-import Contratos from '@/components/vendas/Contratos.vue';
-import Servicos from '@/components/servicos/Servicos.vue';
-import Servico from '@/components/servicos/Servico.vue';
-import Indicadores from '@/components/servicos/Indicadores.vue';
-import Opcoes from '@/components/servicos/Opcoes.vue';
-import Dashboard from '@/components/dashboard/Dashboard.vue';
-import DashboardRodape from '@/components/dashboard/DashboardRodape.vue';
+// import Home from '@/views/Home';
+// import Login from '@/views/Login';
+// import Site from '@/views/Site';
+// import PaginaNaoEncontrada from '@/views/PaginaNaoEncontrada';
+// import Vendas from '@/components/vendas/Vendas.vue';
+// import VendasPadrao from '@/components/vendas/VendasPadrao.vue';
+// import Leads from '@/components/vendas/Leads.vue';
+// import Lead from '@/components/vendas/Lead.vue'
+// import Servicos from '@/components/servicos/Servicos.vue';
+// import Servico from '@/components/servicos/Servico.vue';
+// import Indicadores from '@/components/servicos/Indicadores.vue';
+// import Opcoes from '@/components/servicos/Opcoes.vue';
+// import Contratos from '@/components/vendas/Contratos.vue';
+// import Dashboard from '@/components/dashboard/Dashboard.vue';
+// import DashboardRodape from '@/components/dashboard/DashboardRodape.vue';
+
+// lazy Loading
+const Contratos = () => import(/* webpackChunkName: "vendas" */ '@/components/vendas/Contratos.vue');
+const Dashboard = () => import(/* webpackChunkName: "dashboard" */ '@/components/dashboard/Dashboard.vue');
+const DashboardRodape = () => import(/* webpackChunkName: "dashboard" */ '@/components/dashboard/DashboardRodape.vue');
+
+const Home = () => import('@/views/Home');
+const Login = () => import('@/views/Login');
+const Site = () => import('@/views/Site');
+const PaginaNaoEncontrada = () => import('@/views/PaginaNaoEncontrada');
+const Vendas = () => import(/* webpackChunkName: "vendas" */'@/components/vendas/Vendas.vue');
+const VendasPadrao = () => import(/* webpackChunkName: "vendas" */'@/components/vendas/VendasPadrao.vue');
+const Leads = () => import(/* webpackChunkName: "vendas" */'@/components/vendas/Leads.vue');
+const Lead = () => import(/* webpackChunkName: "vendas" */'@/components/vendas/Lead.vue');
+const Servicos = () => import('@/components/servicos/Servicos.vue');
+const Servico = () => import('@/components/servicos/Servico.vue');
+const Indicadores = () => import('@/components/servicos/Indicadores.vue');
+const Opcoes = () => import('@/components/servicos/Opcoes.vue');
 
 const routes = [
   {
@@ -123,6 +141,17 @@ const router = createRouter({
   // history: createWebHashHistory(), /* requisição é feita apenas para o index em todos os routes mais chances de o server aceitar a requisição */
   history: createWebHistory(), /* requisição é feita com o link da rota embutido, precisamos fazer config de reescrita de url no server */
   // se for utilizado modo webHistory, precisa ser configurado no servidor para ele receber as requisições, documentação sobre isso pode ser achada na doc do vue 
+  scrollBehavior(to, from, savedPosition) {
+    // return { left: 0, top: 150 }
+    // console.log(to.hash);
+
+    console.log(savedPosition);
+    if (to.hash) {
+      return { el: to.hash }
+    }
+
+    return { left: 0, top: 0 }
+  },
   routes
 })
 
