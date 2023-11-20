@@ -35,5 +35,13 @@ export default {
   created() {
       this.getDadosApi('http://localhost:3000/leads');
   },
+  // beforeRouteEnter(to, from, next) {
+  beforeRouteEnter() {
+    console.log('esse método é chamado antes mesmo do componente ser instanciado.')
+  },
+  // beforeRouteLeave(to, from, next) {
+  beforeRouteLeave() {
+    console.log('Rota chamada antes da rota ser deixada.')
+  }
 }
 </script>

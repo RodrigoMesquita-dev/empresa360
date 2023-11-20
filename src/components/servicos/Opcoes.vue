@@ -15,5 +15,8 @@ export default {
         // this.getDadosApi(`http://localhost:3000/servicos/${this.$route.params.id}`);
         console.log('opcoes ', this.id);
     },
+    beforeRouteUpdate() {
+      console.log('guarda de componente beforeRouteUpdate')
+    }
 }
 </script>

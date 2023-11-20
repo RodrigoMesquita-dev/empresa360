@@ -136,6 +136,9 @@ router.beforeEach((to) => {
   */
 })
 
+router.beforeResolve(() => {
+  console.log('guarda global before resolve')
+})
 // router.afterEach((to, from, next) => {
 router.afterEach(() => {
   console.log('guarda de rota global executada após a conclusão da navegação');
